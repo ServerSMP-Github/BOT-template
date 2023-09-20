@@ -19,7 +19,7 @@ module.exports = {
         const minutes = Math.floor(client.uptime / 60000) % 60;
         const seconds = Math.floor(client.uptime / 1000) % 60;
 
-        const botLatency = new Date() - message.createdAt
+        const botLatency = new Date() - interaction.createdTimestamp;
         const apiLatency = client.ws.ping;
 
         interaction.followUp({
