@@ -1,0 +1,17 @@
+{
+    "bot": {
+        "info": {
+            "token": "INSERT YOUR BOT TOKEN",
+            "prefix": "!",
+            "debug": false // this changes the autocrash behavior
+        },
+        "status": {
+            "status": "idle",
+            "text": "Just a template...",
+            "type": "Playing"
+        }
+    },
+    "database": {
+        "mongodb": "INSERT YOUR MONGODB SERVER URI"
+    }
+}
