@@ -5,6 +5,6 @@
   </a>
 </p>
 
-<h3 align="center">BOT Template</h3>
+<h3 align="center">ServerSMP - BOT (template)</h3>
 
 <p align="center">A modifyed version of the handler used in the BOT converted into a template.</p>
