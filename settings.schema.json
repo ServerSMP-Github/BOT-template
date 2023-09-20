@@ -3,7 +3,7 @@
         "info": {
             "token": "INSERT YOUR BOT TOKEN",
             "prefix": "!",
-            "debug": false // this changes the autocrash behavior
+            "debug": false // this changes the auticrash behavior
         },
         "status": {
             "status": "idle",
