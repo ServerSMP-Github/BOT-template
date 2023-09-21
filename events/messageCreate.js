@@ -5,7 +5,7 @@ client.on(Events.MessageCreate, async (message) => {
 
   if (message.author.bot || !message.guild) return;
 
-  const prefix = await client.config.bot.info.prefix;
+  const prefix = client.config.bot.info.prefix;
 
   if (message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`))) return message.channel.send({ content: `Prefix: \`${prefix}\`` });
 
