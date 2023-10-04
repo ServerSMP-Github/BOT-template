@@ -7,4 +7,4 @@
 
 <h3 align="center">ServerSMP - BOT (template)</h3>
 
-<p align="center">A modifyed version of the handler used in the Lamar converted into a template.</p>
+<p align="center">A modifyed version of the handler used in the [Lamar](https://github.com/ServerSMP-Github/Lamar) converted into a template.</p>
