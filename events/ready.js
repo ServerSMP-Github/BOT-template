@@ -1,18 +1,25 @@
-const { Events } = require("discord.js");
 const client = require("../index");
 
 const colors = require('../packages/console.js');
 const { table } = require('table');
 
-client.once(Events.ClientReady, async() => {
-    const cmdCount = client.commands.size + client.slashCommands.size;
-
+client.once("ready", async() => {
     global.startSpinner.succeed();
+
+    let servers = 0;
+    let users = 0;
+
+    await Promise.all(client.servers.map(async (server) => {
+        servers++;
+
+        const members = await server.fetchMembers();
+        users = users + members.users.length;
+    }));
 
     console.log(table([
         [`${colors.fgGray("Connected To")} ${colors.fgYellow(`${client.user.username}`)}`],
-        [`${colors.fgWhite("Watching")} ${colors.fgRed(`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)}`)} ${colors.fgWhite(`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0) > 1 ? "Users + Bots," : "User,"}`)} ${colors.fgRed(`${client.guilds.cache.size}`)} ${colors.fgWhite(`${client.guilds.cache.size > 1 ? "Servers." : "Server."}`)}`],
-        [`${colors.fgWhite(`MongoDB:`)} ${global.mongoStatus} ${colors.fgWhite("||")} ${colors.fgWhite(`Prefix:` + colors.fgRed(` ${client.config.bot.info.prefix}`))} ${colors.fgWhite("||")} ${colors.fgRed(cmdCount)} ${colors.fgWhite(`Commands`)}`],
+        [`${colors.fgWhite("Watching")} ${colors.fgRed(`${users}`)} ${colors.fgWhite(`${users > 1 ? "Users + Bots," : "User,"}`)} ${colors.fgRed(`${servers}`)} ${colors.fgWhite(`${servers > 1 ? "Servers." : "Server."}`)}`],
+        [`${colors.fgWhite(`MongoDB:`)} ${global.mongoStatus} ${colors.fgWhite("||")} ${colors.fgWhite(`Prefix:` + colors.fgRed(` ${client.config.bot.info.prefix}`))} ${colors.fgWhite("||")} ${colors.fgRed(client.commands.size)} ${colors.fgWhite(`Commands`)}`],
     ], {
         columnDefault: {
             width: 50,
@@ -31,6 +38,13 @@ client.once(Events.ClientReady, async() => {
             )}\n${colors.bold(colors.fgGreen("Success!"))}`,
         }
     }));
+
+    client.api.patch("/users/@me", {
+        status: {
+            text: client.config.bot.status.text,
+            presence: client.config.bot.status.status
+        }
+    });
 
     global.mongoStatus = true;
 });

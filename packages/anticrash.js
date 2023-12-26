@@ -1,7 +1,6 @@
-const { EmbedBuilder, WebhookClient } = require("discord.js");
 const colors = require('../packages/console.js');
 
-module.exports = (client) => {
+module.exports = () => {
 
   process.on('unhandledRejection', (reason, p) => {
     console.log(`[${colors.fgRed('error')}] ${colors.fgBlue('[antiCrash.js]')} ${colors.fgRed('Unhandled rejection/crash detected.')}`);

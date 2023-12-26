@@ -6,10 +6,12 @@
             "debug": false // this changes the auticrash behavior
         },
         "status": {
-            "status": "idle",
-            "text": "Just a template...",
-            "type": "Playing"
-        }
+            "status": "Busy",
+            "text": "Watching for changes..."
+        },
+        "owner": [
+            "USER ID"
+        ]
     },
     "database": {
         "mongodb": "INSERT YOUR MONGODB SERVER URI"

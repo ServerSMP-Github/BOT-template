@@ -1,5 +1,5 @@
-const { Client, ApplicationCommandType } = require("discord.js");
 const { getFileList } = require("../packages/files.js");
+const { Client } = require("revolt.js");
 
 /**
  * @param {Client} client
@@ -21,27 +21,5 @@ module.exports = async (client) => {
     // Events
     const eventFiles = await getFileList(`${process.cwd()}/events`, { type: ".js", recursively: false });
     eventFiles.map((value) => require(value));
-
-    // Slash Commands
-    const slashCommands = await getFileList(`${process.cwd()}/SlashCommands`, { type: ".js", recursively: true });
-
-    const arrayOfSlashCommands = [];
-    slashCommands.map((value) => {
-        const file = require(value);
-        if (!file?.name) return;
-        client.slashCommands.set(file.name, file);
-
-        if ([ApplicationCommandType.Message, ApplicationCommandType.User].includes(file.type)) delete file.description;
-        arrayOfSlashCommands.push(file);
-    });
-    client.on("ready", async () => {
-        // Register for a single guild
-        // await client.guilds.cache
-        //    .get("831513803488624730")
-        //    .commands.set(arrayOfSlashCommands);
-
-        // Register for all the guilds the bot is in
-        await client.application.commands.set(arrayOfSlashCommands);
-    });
 
 };
