@@ -1,47 +1,17 @@
-const { Client, Collection, GatewayIntentBits, Partials, ActivityType } = require("discord.js");
 const config = require("./settings.json");
-
-require("./packages/status.js")(config);
+const { Client } = require("touchguild");
 
 global.startSpinner = require("./packages/console").createSpinner("Starting BOT");
 global.startSpinner.start();
 
-const client = new Client({
-    intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildPresences,
-        GatewayIntentBits.GuildVoiceStates,
-        GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMessageReactions,
-        GatewayIntentBits.DirectMessages
-    ],
-    partials: [
-        Partials.User,
-        Partials.Channel,
-        Partials.GuildMember,
-        Partials.Message,
-        Partials.Reaction,
-        Partials.GuildScheduledEvent,
-        Partials.ThreadMember
-    ],
-    presence: {
-        activities: [{
-            name: config.bot.status.text ? config.bot.status.text : "Starting!",
-            type: global.statusType,
-        }],
-        status: config.bot.status.status
-    }
-});
+const client = new Client({ token: config.bot.info.token });
 
 module.exports = client;
 
-client.commands = new Collection();
-client.slashCommands = new Collection();
+client.commands = new Map();
 client.config = config;
 
-if (!config.bot.info.debug) require("./packages/anticrash.js")(client);
+if (!config.bot.info.debug) require("./packages/anticrash.js")();
 
 const mongoose = require("mongoose");
 
@@ -57,4 +27,4 @@ mongoose.connection.on("error", (err) => console.log(err));
 
 require("./handler")(client);
 
-client.login(config.bot.info.token);
+client.connect();

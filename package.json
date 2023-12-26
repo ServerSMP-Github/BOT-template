@@ -10,8 +10,8 @@
   "author": "Prince527",
   "license": "Unlicense",
   "dependencies": {
-    "discord.js": "^14.13.0",
     "mongoose": "^7.5.2",
-    "table": "^6.8.1"
+    "table": "^6.8.1",
+    "touchguild": "^1.2.4"
   }
 }

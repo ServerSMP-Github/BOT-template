@@ -7,4 +7,4 @@
 
 <h3 align="center">ServerSMP - BOT (template)</h3>
 
-<p align="center">A modifyed version of the handler used in <a href="https://github.com/ServerSMP-Github/Lamar">Lamar</a> converted into a template.</p>
+<p align="center">A modifyed version of the handler used in <a href="https://github.com/ServerSMP-Github/Lamar">Lamar</a> converted to work with <a href="https://www.guilded.gg/">Guilded</a>.</p>

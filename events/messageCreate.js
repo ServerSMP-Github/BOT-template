@@ -1,13 +1,17 @@
-const { EmbedBuilder, Events } = require('discord.js');
+const { Message } = require("touchguild");
 const client = require("../index");
 
-client.on(Events.MessageCreate, async (message) => {
+/**
+ *
+ * @param {Message} message
+ */
+client.on("messageCreate", async (message) => {
 
-  if (message.author.bot || !message.guild) return;
+  if (message.member.bot || !message.guild) return;
 
   const prefix = client.config.bot.info.prefix;
 
-  if (message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`))) return message.channel.send({ content: `Prefix: \`${prefix}\`` });
+  if (message.content.match(new RegExp(`@${client.user.username}`))) return message.createMessage({ content: `Prefix: \`${prefix}\`` });
 
   if (!message.content.toLowerCase().startsWith(prefix)) return;
 
@@ -17,21 +21,20 @@ client.on(Events.MessageCreate, async (message) => {
       .split(" ");
 
   const command = client.commands.get(cmd.toLowerCase()) || client.commands.find(c => c.aliases?.includes(cmd.toLowerCase()));
+  if (!command) return;
 
-  if (command) {
+  // if(!message.member.permissions.has(command.userPermission || [])) return message.createMessage({ content: "You do not have permission to use this command!" });
+  // if(!message.guild.members.me.permissions.has(command.botPermission || [])) return message.createMessage({ content: "I do not have permission to use this command!" });
 
-    if(!message.member.permissions.has(command.userPermission || [])) return message.channel.send("You do not have permission to use this command!");
-    if(!message.guild.members.me.permissions.has(command.botPermission || [])) return message.channel.send("I do not have permission to use this command!");
+  if (command.owner && !client.config.bot.owner.includes(message.memberID)) return message.createMessage({
+    embeds: [
+      {
+        description: "This command can only be used by the owners!",
+        color: 3093151
+      }
+    ]
+  });
 
-    if (command.owner && !client.config.bot.owner.includes(message.author.id)) return message.channel.send({
-      embeds: [
-        new EmbedBuilder()
-          .setColor("Red")
-          .setDescription("This command can only be used by the owners!")
-      ]
-    });
+  await command.run(client, message, args);
 
-    await command.run(client, message, args);
-
-  } else return;
 });

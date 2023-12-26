@@ -6,9 +6,8 @@
             "debug": false // this changes the auticrash behavior
         },
         "status": {
-            "status": "idle",
             "text": "Just a template...",
-            "type": "Playing"
+            "emoji": "90002540"
         }
     },
     "database": {

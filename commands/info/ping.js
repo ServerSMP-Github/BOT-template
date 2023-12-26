@@ -1,4 +1,4 @@
-const { Message, Client, EmbedBuilder } = require("discord.js");
+const { Client, Message } = require("touchguild");
 
 module.exports = {
     name: "ping",
@@ -18,30 +18,27 @@ module.exports = {
         const seconds = Math.floor(client.uptime / 1000) % 60;
 
         const botLatency = new Date() - message.createdAt
-        const apiLatency = client.ws.ping;
+        const apiLatency = client.ws.latency;
 
-        message.channel.send({
+        message.createMessage({
             embeds: [
-                new EmbedBuilder()
-                .setColor("Random")
-                .addFields([
-                    {
-                        name: "Bot Latency",
-                        value: `${botLatency <= 200 ? circles.green : botLatency <= 400 ? circles.yellow : circles.red} ${botLatency}ms`,
-                        inline: true
-                    },
-                    {
-                        name: "API Latency",
-                        value: `${apiLatency <= 200 ? circles.green : apiLatency <= 400 ? circles.yellow : circles.red} ${apiLatency}ms`,
-                        inline: true
-                    },
-                    {
-                        name: "Client Uptime",
-                        value: `${days}d ${hours}h ${minutes}m ${seconds}s`,
-                        inline: true
-                    }
-                ])
+                {
+                    fields: [
+                        {
+                            name: "Bot Latency",
+                            value: `${botLatency <= 200 ? circles.green : botLatency <= 400 ? circles.yellow : circles.red} ${botLatency}ms`
+                        },
+                        {
+                            name: "API Latency",
+                            value: `${apiLatency <= 200 ? circles.green : apiLatency <= 400 ? circles.yellow : circles.red} ${apiLatency}ms`
+                        },
+                        {
+                            name: "Client Uptime",
+                            value: `${days}d ${hours}h ${minutes}m ${seconds}s`
+                        },
+                    ]
+                }
             ]
-        });
+        })
     },
 };
