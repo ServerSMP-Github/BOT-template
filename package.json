@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Prince527",
+  "license": "Unlicense",
   "dependencies": {
     "mongoose": "^8.0.3",
     "revolt.js": "^7.0.0-beta.9",
