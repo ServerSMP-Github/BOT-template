@@ -1,3 +1,4 @@
+const { hexToDecimal } = require("../packages/color")
 const { Message } = require("touchguild");
 const client = require("../index");
 
@@ -30,7 +31,7 @@ client.on("messageCreate", async (message) => {
     embeds: [
       {
         description: "This command can only be used by the owners!",
-        color: 3093151
+        color: hexToDecimal("#ff0000")
       }
     ]
   });
