@@ -15,7 +15,7 @@ client.on("messageCreate", async (message) => {
       .trim()
       .split(" ");
 
-  const command = client.commands.get(cmd.toLowerCase()) || client.commands.find(c => c.aliases?.includes(cmd.toLowerCase()));
+  const command = client.commands.get(cmd.toLowerCase()) || Array.from(client.commands.values()).find(c => c.aliases?.includes(cmd.toLowerCase()));
   if (!command) return;
 
   if(command.userPermission && !message.member.hasPermission(message.channel.server, command.userPermission || [])) return message.channel.sendMessage("You do not have permission to use this command!");
