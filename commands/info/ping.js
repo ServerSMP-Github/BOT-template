@@ -10,13 +10,16 @@ module.exports = {
      */
     run: async (client, message, args) => {
         const circles = { green: "🟢", yellow: "🟡", red: "🔴" };
-        
-        const now = Date.now();
 
-        const msg = await message.channel.sendMessage("Pinging...");
+        const botLatency = Date.now() - message.createdAt;
 
-        const botLatency = Date.now() - now;
-
-        msg.edit({ content: `The bots latency is: ${botLatency <= 200 ? circles.green : botLatency <= 400 ? circles.yellow : circles.red} ${botLatency}ms` }); 
+        message.channel.sendMessage({
+            embeds: [
+                {
+                    colour: "#ff0000",
+                    description: `**Bot Latency**\n${botLatency <= 200 ? circles.green : botLatency <= 400 ? circles.yellow : circles.red} ${botLatency}ms`
+                }
+            ]
+        });
     },
 };
