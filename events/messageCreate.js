@@ -1,4 +1,4 @@
-const { hexToDecimal } = require("../packages/color")
+const { hexToDecimal } = require("../packages/color");
 const { Message } = require("touchguild");
 const client = require("../index");
 
@@ -21,7 +21,7 @@ client.on("messageCreate", async (message) => {
       .trim()
       .split(" ");
 
-  const command = client.commands.get(cmd.toLowerCase()) || client.commands.find(c => c.aliases?.includes(cmd.toLowerCase()));
+  const command = client.commands.get(cmd.toLowerCase()) || Array.from(client.commands.values()).find(c => c.aliases?.includes(cmd.toLowerCase()));
   if (!command) return;
 
   // if(!message.member.permissions.has(command.userPermission || [])) return message.createMessage({ content: "You do not have permission to use this command!" });
